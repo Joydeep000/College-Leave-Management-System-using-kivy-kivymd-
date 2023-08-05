@@ -1,0 +1,122 @@
+MDScreen:
+    name:"Leave_Request_Form"
+    md_bg_color: 194/255, 216/255, 255/255,1
+    MDTopAppBar:
+        title:"        Leave Request Form"
+
+        elevation:4
+        pos_hint:{"top":1}
+
+    MDBoxLayout:
+        size_hint:0.5,0.6
+        orientation:"vertical"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        padding: 5
+        spacing: 5
+        MDLabel:
+            text:"Leave Type :"
+            font_name : "Poppins Medium 500.ttf"
+            color: rgba(0,0,72, 255)
+
+        Spinner:
+            id:leave_types
+            text:"Select"
+            values:["Casual Leave","Medical Leave","Earned Leave","Child Care Leave","Maternity Leave","Duty Leave","Sick Leave","Others"]
+            background_color: "blue"
+
+        MDLabel:
+            text:"Employee type :"
+            font_name : "Poppins Medium 500.ttf"
+            color: rgba(0,0,72, 255)
+
+            font_size: "14dp"
+        Spinner:
+            id:emp_type
+            text:"Employee type"
+            values:["Casual Leave","Medical Leave","Earned Leave","Child Care Leave","Maternity Leave","Duty Leave","Sick Leave","Others"]
+            background_color: "blue"
+        MDTextField:
+            id:name
+            markup: True
+            hint_text: "Name"
+
+            helper_text_mode: "persistent"
+            mode: "round"
+            font_size:"12dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            size_hint: (1, None)
+            height: 300
+        MDTextField:
+            id:empid
+            markup: True
+            hint_text: "Employee Id"
+
+            helper_text_mode: "persistent"
+            mode: "round"
+
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            size_hint: (1, None)
+            height: 300
+        MDLabel:
+            text: "From :"
+            font_name : "Poppins Medium 500.ttf"
+            color: rgba(0,0,72, 255)
+        MDTextField:
+            id:fdate
+            markup: True
+            hint_text: "DD-MM-YYYY"
+
+            helper_text_mode: "persistent"
+            mode: "round"
+
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            size_hint: (1, None)
+            height: 300
+
+
+        MDLabel:
+            text: "To :"
+            font_name : "Poppins Medium 500.ttf"
+            color: rgba(0,0,72, 255)
+        MDTextField:
+            id:tdate
+            markup: True
+            hint_text: "DD-MM-YYYY"
+            helper_text_mode: "persistent"
+            mode: "round"
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            size_hint: (1, None)
+            height: 300
+
+
+
+
+        MDTextField:
+            id:reason
+            markup: True
+            hint_text: "Write your reason..."
+            font_name : "Poppins Medium 500.ttf"
+            font_size:"13dp"
+            helper_text_mode: "persistent"
+            mode: "rectangle"
+
+
+
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    MDIconButton:
+        icon : "arrow-left"
+        pos_hint :{"center_x": 0.1, "center_y": 0.8}
+        user_font_size: "30sp"
+        theme_text_color: "Custom"
+        text_color : rgba(26, 24, 58, 255)
+        on_release:
+            app.goback()
+
+    MDFillRoundFlatButton:
+        text: "Send Request"
+        size_hint: 0.3,0.05
+        md_bg_color: "green"
+        pos_hint :{"center_x": 0.5, "center_y": 0.06}
+        on_press:app.send_request(empid.text,name.text,leave_types.text,emp_type.text,fdate.text,tdate.text,reason.text)
+

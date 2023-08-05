@@ -1,0 +1,60 @@
+MDScreen:
+    name:"certificate"
+    MDGridLayout:
+        cols:1
+        size_hint: 3.5,2
+        pos_hint: {"center_x":1,"center_y":0.52}
+    MDFloatLayout:
+        md_bg_color: 1, 1, 1,1
+        ProfileCard:
+            size_hint_y: .65
+            pos_hint: {"center_y":0.7}
+            elevation: 4
+            md_bg_color: 118/255, 216/255, 210/255,1
+            radius: [0 , 0 ,50 , 50]
+        ProfileCard:
+            size_hint_y: .14
+            size_hint_x: .98
+            pos_hint: {"center_x":0.5,"center_y":0.2}
+            md_bg_color: 118/255, 216/255, 210/255,1
+            radius: [40 , 40 ,40 , 40]
+    MDFloatLayout:
+        orientation: 'vertical'
+        AsyncImage:
+            id: my_image
+            source: 'Untitled21_20230729134638.png'
+            size_hint_y: .6
+            size_hint_x: .8
+            pos_hint: {"center_x":0.5,"center_y":0.7}
+
+        MDLabel:
+            text : "Upload Required document"
+            font_size : "15sp"
+            #font_name : "Poppins Bold 700.ttf"
+            pos_hint: {"center_x":0.63,"center_y":0.45}
+            #on_release: app.open_file_manager()
+
+
+
+        MDRaisedButton:
+            text: "Upload here"
+            size_hint: 0.5,0.04
+            md_bg_color: 25/255, 123/255, 138/255,1
+            font_size : "12sp"
+            #font_name : "Poppins SemiBold 600.ttf"
+            pos_hint : {"center_x":0.6,"center_y": 0.2}
+        MDRaisedButton:
+            text: " Save "
+            size_hint: 0.3,0.02
+            md_bg_color: 25/255, 123/255, 138/255,1
+            font_size : "12sp"
+            #font_name : "Poppins SemiBold 600.ttf"
+            pos_hint : {"center_x":0.5,"center_y": 0.07}
+            on_release: app.goback()
+        MDFloatLayout:
+            orientation: 'vertical'
+            Image:
+                source: "upload-documents-icon-43249.png"
+                size_hint_y: .14
+                size_hint_x: .14
+                pos_hint: {"center_x":0.16,"center_y":0.2}

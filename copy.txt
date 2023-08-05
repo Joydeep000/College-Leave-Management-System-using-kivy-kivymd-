@@ -1,0 +1,454 @@
+        c.execute(f"insert into teaching1 values('{full_name.text}','{email_id.text}','{phone_no.text}','{password.text}','{jdate.text}','{spinner_id1.text}','{spinner_id2.text}','{spinner_id3.text}','{spinner_id4.text}')")
+        c.execute(f"insert into non_teaching values('{full_name.text}','{email_id.text}','{phone_no.text}','{password.text}','{jdate.text}','{spinner_id1.text}','{spinner_id2.text}','{spinner_id3.text}','{spinner_id4.text}')")
+
+                #primary table for teaching employees
+        c.execute("""CREATE TABLE if not exists teaching_1(Employee_ID INT,Name VARCHAR(100),email_ID VARCHAR(100) ,Phone_Number NUMERIC(14) PRIMARY KEY,password VARCHAR(20),Joining_Date DATE,Post VARCHAR(30),Gender VARCHAR(10) ,Department VARCHAR(30),Designation VARCHAR(30))""")
+
+        #primary table for teaching employees
+        c.execute("""CREATE TABLE if not exists non_teaching_2(Employee_ID INT,Name VARCHAR(100),email_ID VARCHAR(100) ,Phone_Number NUMERIC(14) PRIMARY KEY,password VARCHAR(20),Joining_Date DATE,Post VARCHAR(30),Gender VARCHAR(10) ,Department VARCHAR(30),Designation VARCHAR(30))""")
+
+                    Spinner:
+                        id: spinner_id1
+                        size_hint:None,None
+                        size:dp(250),dp(40)
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        text: "Select Employee Type"
+                        values: ["Admin", "Teaching", "Non-Teaching" ]
+
+                    Spinner:
+                        id: spinner_id2
+                        size_hint:None,None
+                        size:dp(250),dp(40)
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        text: "Select Gender"
+                        values: ["Male", "Female", "Others" ]
+
+                    Spinner:
+                        id: spinner_id3
+                        size_hint:None,None
+                        size:dp(250),dp(40)
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        text: "Select Department"
+                        values: ["Science", "Arts", "Commerce"]
+
+                    Spinner:
+                        id: spinner_id4
+                        size_hint:None,None
+                        size:dp(250),dp(40)
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        text: "Designation"
+                        values: ["HOD", "something1", "something2"]
+
+                        c.execute(f"insert into leave_balance values(%s,0,0,0,0,0,0,0,%s)", (row[0], row[5]))
+                        c.execute(f"insert into leave_balance values(%s,0,0,0,0,0,0,0,%s)",(row[0],row[5]))
+                        c.execute(f"insert into leave_balance values(%s,0,0,0,0,0,0,0,%s)", (row[0], row[5]))
+                         c.execute(f"INSERT INTO Teaching_leave_record VALUES('{empid}','{name}','{leave_types}','{emp_type}','{fdate}','{tdate}','{reason}')")
+                                 elif emp_type == "Non-Teaching Employee":
+            c.execute(f"INSERT INTO Non_Teaching_leave_record VALUES('{empid}','{name}','{leave_types}','{emp_type}','{fdate}','{tdate}','{reason}')")
+                    if emp_type == "Teaching Employee":
+            if leave_types == "Casual Leave":
+                c.execute("SELECT Casual_Leave FROM leave_balance WHERE Employee_ID=%s",(empid,))
+                  l = 'leave_balance'
+        c.execute("SELECT Casual_Leave FROM {} WHERE Employee_ID = %s".format(l), (empid,))
+        row = c.fetchone()
+        print(row[0])
+        Suman
+        62441
+        2023-05-06
+        2023-05-09
+        fever
+
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            passwd="12345",
+            database="test_db"
+        )
+        c = mydb.cursor()
+        c.execute(f"insert into notice values(%s,'Your leave has been santioned')", (empid,))
+        mydb.commit()
+        mydb.close()
+                    else:
+                query = "INSERT INTO {} VALUES (%s,%s, %s, %s, %s, %s, %s)".format(l)
+                c.execute(query, (empid, name, leave_types, emp_type, fdate, tdate, reason))
+
+
+
+
+
+
+
+        elif leave_types == "Earned Leave":
+            c.execute("SELECT Earned_Leave FROM leave_balance WHERE Employee_ID=%s", (empid,))
+            row = c.fetchone()
+            if (to_date_object - from_date_object).days > row[0]:
+                dialog = MDDialog(
+                    title='Warning',
+                    text=f"You have {row[0]} Earned Leaves only"
+                )
+                dialog.open()
+            else:
+                query = "INSERT INTO {} VALUES (%s,%s, %s, %s, %s, %s, %s)".format(l)
+                c.execute(query, (empid, name, leave_types, emp_type, fdate, tdate, reason))
+            det = sm.get_screen('login')
+            e = det.ids.login_as.text
+            if e == "Teaching Employee":
+                sm.current = 'teaching_dashboard'
+            elif e == "Non-Teaching Employee":
+                sm.current = 'non_teaching_dashboard'
+        elif leave_types == "Child Care Leave":
+            c.execute("SELECT Gender FROM {} WHERE Employee_ID = %s".format(n), (empid,))
+            row = c.fetchone()
+            if row[0] == "Male":
+                dialog = MDDialog(
+                    title='Warning',
+                    text=f"Only female employees can apply for CCL"
+                )
+                dialog.open()
+            if row[0] == "Female":
+                sm.current = 'certificate'
+        elif leave_types == "Medical Leave":
+            if emp_type == "Teaching Employee":
+                dialog = MDDialog(
+                    title='Warning',
+                    text=f"Only non-teaching employees can apply for Medical Leave"
+                )
+                dialog.open()
+            det = sm.get_screen('login')
+            e = det.ids.login_as.text
+            if e == "Teaching Employee":
+                sm.current = 'teaching_dashboard'
+            elif e == "Non-Teaching Employee":
+                sm.current = 'non_teaching_dashboard'
+        elif leave_types == "Maternity Leave":
+            c.execute("SELECT Gender FROM {} WHERE Employee_ID = %s".format(n), (empid,))
+            row = c.fetchone()
+            if row[0] == "Male":
+                dialog = MDDialog(
+                    title='Warning',
+                    text=f"Only female employees can apply for Maternity Leave"
+                )
+                dialog.open()
+            else:
+                query = "INSERT INTO {} VALUES (%s,%s, %s, %s, %s, %s, %s)".format(l)
+                c.execute(query, (empid, name, leave_types, emp_type, fdate, tdate, reason))
+            det = sm.get_screen('login')
+            e = det.ids.login_as.text
+            if e == "Teaching Employee":
+                sm.current = 'teaching_dashboard'
+            elif e == "Non-Teaching Employee":
+                sm.current = 'non_teaching_dashboard'
+        elif leave_types == "Duty Leave":
+            query = "INSERT INTO {} VALUES (%s,%s, %s, %s, %s, %s, %s)".format(l)
+            c.execute(query, (empid, name, leave_types, emp_type, fdate, tdate, reason))
+            det = sm.get_screen('login')
+            e = det.ids.login_as.text
+            if e == "Teaching Employee":
+                sm.current = 'teaching_dashboard'
+            elif e == "Non-Teaching Employee":
+                sm.current = 'non_teaching_dashboard'
+        elif leave_types == "Others":
+            query = "INSERT INTO {} VALUES (%s,%s, %s, %s, %s, %s, %s)".format(l)
+            c.execute(query, (empid, name, leave_types, emp_type, fdate, tdate, reason))
+            det = sm.get_screen('login')
+            e = det.ids.login_as.text
+            if e == "Teaching Employee":
+                sm.current = 'teaching_dashboard'
+            elif e == "Non-Teaching Employee":
+                sm.current = 'non_teaching_dashboard'
+        elif leave_types == "Special Leave":
+            if (to_date_object - from_date_object).days > 547:
+                dialog = MDDialog(
+                    title='Warning',
+                    text=f"You can't take Special Leave more than 547 days or 18 months"
+                )
+                dialog.open()
+            else:
+                query = "INSERT INTO {} VALUES (%s,%s, %s, %s, %s, %s, %s)".format(l)
+                c.execute(query, (empid, name, leave_types, emp_type, fdate, tdate, reason))
+            det = sm.get_screen('login')
+            e = det.ids.login_as.text
+            if e == "Teaching Employee":
+                sm.current = 'teaching_dashboard'
+            elif e == "Non-Teaching Employee":
+                sm.current = 'non_teaching_dashboard'
+                c.execute("SELECT Sentence FROM notice WHERE Employee_ID = %s",(emp,))
+            row = c.fetchone()
+
+
+ ##function for employee list
+    def on_click_show_list_of_all_employees(self):
+        try:
+            # Connect to the database
+            mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                passwd="12345",
+                database="test_db"
+            )
+            c = mydb.cursor()
+
+            # Retrieve the employee data
+            c.execute("SELECT Name, Employee_ID FROM teaching_records UNION SELECT Name, Employee_ID FROM non_teaching_records ORDER BY Name")
+            rows = c.fetchall()
+
+            # Create the employee list
+            employee_list = self.root.get_screen('emp_list').ids.container
+            employee_list.clear_widgets()  # Clear existing widgets before populating the list
+            for row in rows:
+                # Create a TwoLineListItem with the employee name as text and phone number as secondary text
+                item = TwoLineAvatarIconListItem(text=row[0], secondary_text=str(row[1]))
+                # Bind the on_release event to the show_employee_details function
+                item.bind(on_release=self.show_employee_details_of_employees)
+                # Add the TwoLineListItem to the employee list
+                employee_list.add_widget(item)
+        except Exception as e:
+            print(e)
+            dialog = MDDialog(
+                title='Notice',
+                text="Sorry! An error occured "
+            )
+            dialog.open()
+            MDScreen:
+    name:"Leave_Request_Form"
+    MDGridLayout:
+        cols:1
+        size_hint: 5,5
+        pos_hint: {"center_x":1,"center_y":0.65}
+        Image:
+            source: "pexels-codioful-(formerly-gradienta)-7130498.jpg"
+
+    MDBoxLayout:
+        size_hint:0.5,0.5
+        orientation:"vertical"
+        pos_hint: {'center_x': 0.3, 'center_y': 0.5}
+        padding: 5
+        spacing: 5
+        MDLabel:
+            text:"Leave Type"
+        Spinner:
+            id:leave_types
+            text:"Select"
+            values:["Casual Leave","Medical Leave","Earned Leave","Child Care Leave","Maternity Leave","Duty Leave","Special Leave","Others"]
+        Spinner:
+            id: emp_type
+            text: "Employee Type"
+            values: ["Teaching Employee", "Non-Teaching Employee"]
+        MDTextField:
+            id:name
+            markup: True
+            helper_text_mode: "persistent"
+            mode: "round"
+            hint_text: "Name"
+            pos_hint: {"center_x": 0.5, "center_y": 0.2}
+            size_hint: (1, None)
+            height: 300
+        MDTextField:
+            id:empid
+            markup: True
+            helper_text_mode: "persistent"
+            mode: "round"
+            hint_text: "Employee_ID"
+            pos_hint: {"center_x": 0.5, "center_y": 0.8}
+            size_hint: (1, None)
+            height: 300
+        MDLabel:
+            text: "From"
+
+        #MDIconButton:
+            #icon: "calendar"
+            #on_release: app.open_date_picker('fdate')
+        MDTextField:
+            id:fdate
+            markup: True
+            hint_text: "DD-MM-YYYY"
+            helper_text_mode: "persistent"
+            mode: "round"
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            size_hint: (1, None)
+            height: 300
+        MDLabel:
+            text: "To"
+
+        #MDIconButton:
+            #icon: "calendar"
+            #on_release: app.open_date_picker('tdate')
+        MDTextField:
+            id:tdate
+            markup: True
+            hint_text: "DD-MM-YYYY"
+            helper_text_mode: "persistent"
+            mode: "round"
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            size_hint: (1, None)
+            height: 300
+        MDLabel:
+            text: "Reason"
+    MDTextField:
+        id:reason
+        markup: True
+        hint_text: "Write your reason for leave request"
+        helper_text_mode: "persistent"
+        mode: "rectangle"
+        size:self.size
+        pos_hint: {"center_x": 0.5, "center_y": 0.2}
+    MDIconButton:
+        icon : "arrow-left"
+        pos_hint :{"center_x": 0.1, "center_y": 0.9}
+        user_font_size: "30sp"
+        theme_text_color: "Custom"
+        text_color : rgba(26, 24, 58, 255)
+        on_release:
+            app.goback()
+    MDRoundFlatButton:
+        id:send_request
+        text:"Send request"
+        pos_hint :{"center_x": 0.5, "center_y": 0.1}
+        on_press:
+            app.send_request(empid.text,name.text,leave_types.text,emp_type.text,fdate.text,tdate.text,reason.text)
+
+
+
+     MDScreen:
+    name:"certificate"
+    MDGridLayout:
+        cols:1
+        size_hint: 3.5,2
+        pos_hint: {"center_x":1,"center_y":0.52}
+        Image:
+            source: "pexels-codioful-(formerly-gradienta)-7130498.jpg"
+    BoxLayout:
+        orientation: 'vertical'
+        AsyncImage:
+            id: my_image
+            source: ''
+
+        MDFlatButton:
+            text: "Upload the required document"
+            on_release: app.open_file_manager()
+
+        MDFlatButton:
+            text: 'Done'
+            on_release: app.goback()
+
+
+
+MDScreen:
+    name: "update"
+    MDFloatLayout:
+        BoxLayout:
+            size_hint: (1, 1)
+            padding: 10
+            ScrollView:
+                bar_color: [0, 0, 255, 1]
+                bar_width: 2
+                BoxLayout:
+                    spacing: 15
+                    id: container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+
+                    MDLabel:
+                        size_hint: (1, None)
+                        align:"center"
+                        pos_hint: {"center_x": 0.5, "center_y": 0.9}
+                        color: rgba(0, 0, 200, 255)
+                        markup: True
+                        text: "[size=25]UPDATE YOUR PROFILE[/size]"
+
+                    MDTextField:
+                        id: empid
+                        markup: True
+                        hint_text: "Enter your Employee ID"
+                        mode: "round"
+                        size_hint: (1, None)
+                        height: 300
+
+                    MDTextField:
+                        id: full_name
+                        markup: True
+                        hint_text: "Full name"
+                        mode: "round"
+                        size_hint: (1, None)
+                        height: 300
+
+                    MDTextField:
+                        id: email_id
+                        markup: True
+                        hint_text: "Email ID"
+
+                        mode: "round"
+                        size_hint: (1, None)
+                        height: 300
+
+                    MDTextField:
+                        id: phone_no
+                        markup: True
+                        hint_text: "Phone Number"
+                        mode: "round"
+                        max_text_length: 10
+                        size_hint: (1, None)
+                        height: 300
+
+
+                    MDTextField:
+                        id: password
+                        markup: True
+                        hint_text:"Password"
+
+                        mode: "round"
+                        size_hint: (1, None)
+                        height: 300
+
+                    MDTextField:
+                        id: jdate
+                        markup: True
+                        hint_text: "Joining Date"
+                        mode: "round"
+                        size_hint: (1, None)
+                        height: 300
+
+                    MDTextField:
+                        id: dept
+                        markup: True
+                        hint_text: "Department"
+                        mode: "round"
+                        size_hint: (1, None)
+                        height: 300
+
+                    MDTextField:
+                        id: desig
+                        markup: True
+                        hint_text: "Designation"
+                        mode: "round"
+                        size_hint: (1, None)
+                        height: 300
+
+                    Spinner:
+                        id: gender
+                        size_hint:None,None
+                        size:dp(250),dp(40)
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        text: "Select Gender"
+                        values: ["Male", "Female", "Others" ]
+
+                    Spinner:
+                        id: etype
+                        size_hint:None,None
+                        size:dp(250),dp(40)
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        text: "Select Employee Type"
+                        values: ["Admin", "Teaching Employee", "Non-Teaching Employee" ]
+                    MDFillRoundFlatButton:
+                        text: "Update"
+                        size_hint: 0.3, 0.05
+                        pos_hint: {"center_x": 0.5, "center_y": 0.2}
+                        on_release:
+                            app.update1()
+
+
+
+
+
+

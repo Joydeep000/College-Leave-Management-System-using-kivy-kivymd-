@@ -1,0 +1,102 @@
+MDScreen:
+    name: "login"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "10dp"
+
+        Image:
+            source: "pexels-codioful-(formerly-gradienta)-7130498.jpg"
+
+        MDLabel:
+            text: "Please sign in to continue..."
+            font_size: "14sp"
+            font_name: "Poppins Bold Italic 700.ttf"
+            halign: "center"
+            color: rgba(0, 51, 102)
+
+        BoxLayout:
+            orientation: "vertical"
+            spacing: "10dp"
+
+            MDTextField:
+                id: email_phn
+                markup: True
+                hint_text: "Email ID or Phone number"
+                icon_right: "account"
+                mode: "rectangle"
+                color_mode: "Custom"
+                current_hint_text_color: 1, 1, 1, 1
+                line_color_focus: (0, 0, 0, 1)
+                text_color: (1, 1, 1, 1)
+                helper_text_color: (0, 0, 0, 1) if self.focus else (255, 255, 255, 1)
+
+            MDTextField:
+                id: password
+                password: True
+                hint_text: "Password*"
+                helper_text_mode: "on_focus"
+                mode: "rectangle"
+                icon_right: "eye-off"
+                line_color_focus: (0, 0, 0, 1)
+                text_color: (0, 0, 0, 1)
+                helper_text_color: (0, 0, 0, 1) if self.focus else (255, 255, 255, 1)
+                on_icon_right: app.toggle_password_visibility()
+
+            MDLabel:
+                text: "Login as:"
+                font_size: "13sp"
+                font_name: "Poppins Medium 500.ttf"
+                halign: "center"
+                color: rgba(0, 0, 0)
+
+            Spinner:
+                id: login_as
+                size_hint: None, None
+                size: dp(190), dp(30)
+                text: "Select"
+                background_color: "blue"
+                font_size: "18dp"
+                values: ["Admin", "Teaching Employee", "Non-Teaching Employee"]
+
+            MDFillRoundFlatButton:
+                text: "LOGIN"
+                size_hint: None, None
+                size: dp(200), dp(40)
+                on_release: app.check_login(email_phn.text, login_as.text, password.text)
+
+        BoxLayout:
+            spacing: "10dp"
+
+            MDLabel:
+                text: "New user->"
+                font_size: "14sp"
+                halign: "center"
+                color: rgba(0, 102, 204)
+
+            MDLabel:
+                text: "---------------------------------------- OR -----------------------------------------"
+                font_size: "12.3sp"
+                halign: "center"
+                color: rgba(0, 76, 153)
+
+            MDTextButton:
+                text: "Sign Up"
+                theme_text_color: "Custom"
+                color: rgba(0, 0, 0)
+                font_size: "14sp"
+                on_press: root.manager.current = "signup"
+
+        MDLabel:
+            text: "Forgot password?"
+            font_size: "13sp"
+            halign: "center"
+
+        GridLayout:
+            cols: 1
+            size_hint: None, None
+            size: dp(100), dp(100)
+            pos_hint: {"center_x": 0.5, "center_y": 0.1}
+            Image:
+                source: "google.png"
